@@ -1,8 +1,11 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt-get install -y lsb-release
-sudo yum install -y redhat-lsb
+if [ ! -z `sudo which apt | grep "/apt" ]; then
+	sudo apt update
+	sudo apt-get install -y lsb-release
+elif [ -z `sudo which yum | grep "/yum" ]; then
+	sudo yum install -y redhat-lsb
+fi
 
 is_ubuntu=`lsb_release -a | grep ubuntu -i`
 is_centos=`lsb_release -a | grep centos -i`
