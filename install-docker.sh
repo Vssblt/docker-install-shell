@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ ! -z `sudo which apt | grep "/apt" ]; then
+if [ ! -z `sudo which apt | grep "/apt"` ]; then
 	sudo apt update
 	sudo apt-get install -y lsb-release
-elif [ -z `sudo which yum | grep "/yum" ]; then
+elif [ -z `sudo which yum | grep "/yum"` ]; then
 	sudo yum install -y redhat-lsb
 fi
 
