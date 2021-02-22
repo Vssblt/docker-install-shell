@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sudo apt update
+sudo apt-get install -y lsb-release
+sudo yum install -y redhat-lsb
+
 is_ubuntu=`lsb_release -a | grep ubuntu -i`
 is_centos=`lsb_release -a | grep centos -i`
 
