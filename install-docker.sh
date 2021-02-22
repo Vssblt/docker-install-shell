@@ -26,6 +26,7 @@ fi
 
 function ubuntu_install()
 {
+	#Install docker
 	sudo apt update
 	sudo apt install -y apt-transport-https ca-certificates software-properties-common curl
 	curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
@@ -37,8 +38,10 @@ function ubuntu_install()
 	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
 	if [ -z $is_docker_success ]; then
 		echo "Error: Docker installation Failed."
-		exit;
+		exit
 	fi
+	
+	#Install nvidia docker
 	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
@@ -48,7 +51,7 @@ function ubuntu_install()
 	is_nvidia_docker_success=`sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi | grep GPU -i`
 	if [ -z $is_nvidia_docker_success ]; then
 		echo "Error: Nvidia docker installation failed."
-		exit;
+		exit
 	fi
 	echo "Docker has been installed successfully."
 }
@@ -64,7 +67,7 @@ function centos_install()
 	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
 	if [ -z $is_docker_success ]; then
 		echo "Error: Docker installation Failed."
-		exit;
+		exit
 	fi
 
 	#Install nvidia docker
@@ -75,7 +78,7 @@ function centos_install()
 	is_nvidia_docker_success=`sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi | grep GPU -i`
 	if [ -z $is_nvidia_docker_success ]; then
 		echo "Error: Nvidia docker installation failed."
-		exit;
+		exit
 	fi
 	echo "Docker has been installed successfully."
 }
