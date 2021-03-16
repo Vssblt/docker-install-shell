@@ -9,3 +9,6 @@ sudo ./install-docker.sh
 ## Support
 - ubuntu
 - centos
+
+# Tested
+- ubuntu 20.04 amd64
