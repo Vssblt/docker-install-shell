@@ -20,8 +20,7 @@ else
 fi
 
 if [ ! -z "$is_docker_exist" ]; then
-	echo "Error: Please remove old version docker first. "
-	exit
+	echo "Warning: docker already exists. "
 fi
 
 function ubuntu_install()
