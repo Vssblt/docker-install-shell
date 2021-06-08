@@ -35,7 +35,7 @@ function ubuntu_install()
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
 	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
-	if [ -z $is_docker_success ]; then
+	if [ -z "$is_docker_success" ]; then
 		echo "Error: Docker installation Failed."
 		exit
 	fi
@@ -48,7 +48,7 @@ function ubuntu_install()
 	sudo apt-get install -y nvidia-docker2
 	sudo systemctl restart docker
 	is_nvidia_docker_success=`sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi | grep GPU -i`
-	if [ -z $is_nvidia_docker_success ]; then
+	if [ -z "$is_nvidia_docker_success" ]; then
 		echo "Error: Nvidia docker installation failed."
 		exit
 	fi
@@ -64,7 +64,7 @@ function centos_install()
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
 	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
-	if [ -z $is_docker_success ]; then
+	if [ -z "$is_docker_success" ]; then
 		echo "Error: Docker installation Failed."
 		exit
 	fi
@@ -75,7 +75,7 @@ function centos_install()
 	sudo yum install -y nvidia-docker2
 	sudo systemctl restart docker
 	is_nvidia_docker_success=`sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi | grep GPU -i`
-	if [ -z $is_nvidia_docker_success ]; then
+	if [ -z "$is_nvidia_docker_success" ]; then
 		echo "Error: Nvidia docker installation failed."
 		exit
 	fi
