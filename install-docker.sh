@@ -34,7 +34,7 @@ function ubuntu_install()
 	sudo apt install docker-ce -y
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
-	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
+	is_docker_success=`sudo docker run --rm hello-world | grep -i "Hello from Docker"`
 	if [ -z "$is_docker_success" ]; then
 		echo "Error: Docker installation Failed."
 		exit
@@ -63,7 +63,7 @@ function centos_install()
 	sudo yum install docker-ce-18.09.2 docker-ce-cli-18.09.2 containerd.io
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
-	is_docker_success=`sudo docker run hello-world | grep -i "Hello from Docker"`
+	is_docker_success=`sudo docker run --rm hello-world | grep -i "Hello from Docker"`
 	if [ -z "$is_docker_success" ]; then
 		echo "Error: Docker installation Failed."
 		exit
