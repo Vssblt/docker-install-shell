@@ -34,8 +34,7 @@ function ubuntu_install()
 	sudo apt install docker-ce -y
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
-	is_docker_success=`sudo docker run --rm hello-world | grep -i "Hello from Docker"`
-	if [ -z "$is_docker_success" ]; then
+	if [ "$?" != "0" ]; then
 		echo "Error: Docker installation Failed."
 		exit
 	fi
@@ -47,8 +46,7 @@ function ubuntu_install()
 	sudo apt-get update
 	sudo apt-get install -y nvidia-docker2
 	sudo systemctl restart docker
-	is_nvidia_docker_success=`sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi | grep GPU -i`
-	if [ -z "$is_nvidia_docker_success" ]; then
+	if [ "$?" != "0" ]; then
 		echo "Error: Nvidia docker installation failed."
 		exit
 	fi
