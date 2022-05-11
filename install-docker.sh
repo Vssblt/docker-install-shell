@@ -23,6 +23,19 @@ if [ ! -z "$is_docker_exist" ]; then
 	echo "Warning: docker already exists. "
 fi
 
+function nvidia_reinstall_gpg_keys()
+{
+# The GPG private keys of Nvidia was leak out during the hack attack. So we must delete the old GPG keys and install the new GPG keys. 
+	# By the way, the leaked stolen keys can sign Windows malware. (Fuck Nvidia. Or the hacker, what ever.)
+	sudo apt-key del 7fa2af80 || true
+	sudo apt update 2>/dev/null || true
+	sudo apt install -y wget
+	sudo rm /usr/share/keyrings/cuda-archive-keyring.gpg /etc/apt/sources.list.d/cuda.list || true
+	cd /tmp/ && sudo wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && sudo dpkg -i cuda-keyring_1.0-1_all.deb && sudo rm cuda-keyring_1.0-1_all.deb && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80
+  cd -
+	sudo apt update 2>/dev/null
+}
+
 function ubuntu_install()
 {
 	#Install docker
