@@ -26,7 +26,6 @@ fi
 function nvidia_reinstall_gpg_keys()
 {
 # The GPG private keys of Nvidia was leak out during the hack attack. So we must delete the old GPG keys and install the new GPG keys. 
-	# By the way, the leaked stolen keys can sign Windows malware. (Fuck Nvidia. Or the hacker, what ever.)
 	sudo apt-key del 7fa2af80 || true
 	sudo apt update 2>/dev/null || true
 	sudo apt install -y wget
