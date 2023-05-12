@@ -28,7 +28,7 @@ function nvidia_reinstall_gpg_keys()
 # The GPG private keys of Nvidia was leak out during the hack attack. So we must delete the old GPG keys and install the new GPG keys. 
 	sudo apt-key del 7fa2af80 || true
 	sudo apt update 2>/dev/null || true
-	sudo apt install -y wget
+	sudo apt install -y wget --option=Dpkg::Options::=--force-confdef
 	sudo rm /usr/share/keyrings/cuda-archive-keyring.gpg /etc/apt/sources.list.d/cuda.list || true
 	cd /tmp/ && sudo wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && sudo dpkg -i cuda-keyring_1.0-1_all.deb && sudo rm cuda-keyring_1.0-1_all.deb && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80
   cd -
@@ -39,11 +39,11 @@ function ubuntu_install()
 {
 	#Install docker
 	sudo apt update
-	sudo apt install -y apt-transport-https ca-certificates software-properties-common curl
+	sudo apt install -y apt-transport-https ca-certificates software-properties-common curl --option=Dpkg::Options::=--force-confdef
 	curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 	sudo apt update
-	sudo apt install docker-ce -y
+	sudo apt install docker-ce -y --option=Dpkg::Options::=--force-confdef
 	sudo systemctl enable docker.service
 	sudo systemctl start docker
 	if [ "$?" != "0" ]; then
@@ -56,7 +56,7 @@ function ubuntu_install()
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 	sudo apt-get update
-	sudo apt-get install -y nvidia-docker2
+	sudo apt-get install -y nvidia-docker2 --option=Dpkg::Options::=--force-confdef
 	sudo systemctl restart docker
 	if [ "$?" != "0" ]; then
 		echo "Error: Nvidia docker installation failed."
